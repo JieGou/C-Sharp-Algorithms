@@ -2,18 +2,21 @@
 using DataStructures.Graphs;
 using System.Diagnostics;
 using System.Linq;
+using Xunit;
 
 namespace UnitTest.AlgorithmsTests
 {
     public static class GraphsConnectedComponents
     {
+        [Fact]
         public static void DoTest()
         {
+            //<image url="$(ProjectDir)\DocumentImages\Graph03.png"/>
             var graph = new UndirectedSparseGraph<string>();
 
             // Add vertices
             var verticesSet1 = new string[] { "a", "b", "c", "d", "e", "f", "s", "v", "x", "y", "z" };
-            graph.AddVertices (verticesSet1);
+            graph.AddVertices(verticesSet1);
 
             // Add edges
             // Connected Component #1
@@ -34,7 +37,6 @@ namespace UnitTest.AlgorithmsTests
 
             // Connected Component #4
             graph.AddEdge("y", "z");
-
 
             // Get connected components
             var connectedComponents = ConnectedComponents.Compute<string>(graph);
@@ -57,4 +59,3 @@ namespace UnitTest.AlgorithmsTests
         }
     }
 }
-

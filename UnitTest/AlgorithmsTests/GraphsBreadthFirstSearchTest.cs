@@ -14,6 +14,8 @@ namespace UnitTest.AlgorithmsTests
         {
             IGraph<string> graph = new UndirectedSparseGraph<string>();
 
+            //可从 https://csacademy.com/app/graph_editor/生成图
+            //<image url="$(ProjectDir)\DocumentImages\graph.png"/>
             // Add vertices
             var verticesSet1 = new string[] { "a", "z", "s", "x", "d", "c", "f", "v" };
             graph.AddVertices(verticesSet1);
@@ -63,8 +65,5 @@ namespace UnitTest.AlgorithmsTests
 
             Console.WriteLine("\r\n");
         }
-
     }
-
 }
-

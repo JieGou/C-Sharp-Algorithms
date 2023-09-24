@@ -1,17 +1,17 @@
 ﻿/***
- * Implements the the Breadth-First Search algorithm. 
- * 
- * Provides multiple functions for traversing graphs: 
- *  1. PrintAll(), 
- *  2. VisitAll(Action<T> forEachFunc), 
- *  3. FindFirstMatch(Predicate<T> match). 
- *  
+ * Implements the the Breadth-First Search algorithm.
+ *
+ * Provides multiple functions for traversing graphs:
+ *  1. PrintAll(),
+ *  2. VisitAll(Action<T> forEachFunc),
+ *  3. FindFirstMatch(Predicate<T> match).
+ *
  * The VisitAll() applies a function to every graph node. The FindFirstMatch() function searches the graph for a predicate match.
  */
 
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using DataStructures.Graphs;
 
 namespace Algorithms.Graphs
@@ -35,14 +35,16 @@ namespace Algorithms.Graphs
             var visited = new HashSet<T>();
             var queue = new Queue<T>(Graph.VerticesCount);
 
-            queue.Enqueue (StartVertex);
+            queue.Enqueue(StartVertex);
+            visited.Add(StartVertex);
 
             while (queue.Count > 0)
             {
                 var current = queue.Dequeue();
-                Console.Write(String.Format("({0}) ", current));
+                Trace.Write(String.Format("({0}) ", current));
 
-                foreach (var adjacent in Graph.Neighbours(current))
+                var neighbours = Graph.Neighbours(current);
+                foreach (var adjacent in neighbours)
                 {
                     if (!visited.Contains(adjacent))
                     {
@@ -69,11 +71,11 @@ namespace Algorithms.Graphs
 
             int level = 0;													// keeps track of level
             var frontiers = new List<T>();									// keeps track of previous levels, i - 1
-            var levels = new Dictionary<T, int>(Graph.VerticesCount);		// keeps track of visited nodes and their distances
+            var levels = new Dictionary<T, int?>(Graph.VerticesCount);		// keeps track of visited nodes and their distances
             var parents = new Dictionary<T, object>(Graph.VerticesCount);	// keeps track of tree-nodes
 
             frontiers.Add(StartVertex);
-            levels.Add(StartVertex, 0);
+            levels.Add(StartVertex, null);
             parents.Add(StartVertex, null);
 
             // BFS VISIT CURRENT NODE
@@ -86,7 +88,8 @@ namespace Algorithms.Graphs
 
                 foreach (var node in frontiers)
                 {
-                    foreach (var adjacent in Graph.Neighbours(node))
+                    var neighbours = Graph.Neighbours(node);
+                    foreach (var adjacent in neighbours)
                     {
                         if (!levels.ContainsKey(adjacent)) 				// not visited yet
                         {
@@ -121,11 +124,11 @@ namespace Algorithms.Graphs
 
             int level = 0;													// keeps track of levels
             var frontiers = new List<T>();									// keeps track of previous levels, i - 1
-            var levels = new Dictionary<T, int>(Graph.VerticesCount);		// keeps track of visited nodes and their distances
+            var levels = new Dictionary<T, int?>(Graph.VerticesCount);		// keeps track of visited nodes and their distances
             var parents = new Dictionary<T, object>(Graph.VerticesCount);	// keeps track of tree-nodes
 
             frontiers.Add(StartVertex);
-            levels.Add(StartVertex, 0);
+            levels.Add(StartVertex, null);
             parents.Add(StartVertex, null);
 
             // BFS VISIT CURRENT NODE
@@ -139,7 +142,8 @@ namespace Algorithms.Graphs
 
                 foreach (var node in frontiers)
                 {
-                    foreach (var adjacent in Graph.Neighbours(node))
+                    var neighbours = Graph.Neighbours(node);
+                    foreach (var adjacent in neighbours)
                     {
                         if (!levels.ContainsKey(adjacent)) 				// not visited yet
                         {
@@ -160,8 +164,5 @@ namespace Algorithms.Graphs
 
             throw new Exception("Item was not found!");
         }
-
     }
-
 }
-

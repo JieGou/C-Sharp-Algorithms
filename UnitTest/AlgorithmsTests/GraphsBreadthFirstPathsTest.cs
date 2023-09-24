@@ -24,6 +24,7 @@ namespace UnitTest.AlgorithmsTests
         [Fact]
         public static void DoTest()
         {
+            //<image url="$(ProjectDir)\DocumentImages\Graph02.png"/>
             IGraph<string> graph = new UndirectedSparseGraph<string>();
 
             // Add vertices
@@ -48,7 +49,7 @@ namespace UnitTest.AlgorithmsTests
             var sourceNode = "f";
             var bfsPaths = new BreadthFirstShortestPaths<string>(graph, sourceNode);
 
-            // TODO: 
+            // TODO:
             // - Assert distances
             // - Assert ShortestPathTo a node
 
@@ -61,10 +62,6 @@ namespace UnitTest.AlgorithmsTests
 
             Trace.WriteLine("Distance from '" + sourceNode + "' to 'w' is: " + bfsPaths.DistanceTo("w"));
             Trace.WriteLine("Path from '" + sourceNode + "' to 'w' is : " + PrintPath(bfsPaths.ShortestPathTo("w")));
-
         }
-
     }
-
 }
-
