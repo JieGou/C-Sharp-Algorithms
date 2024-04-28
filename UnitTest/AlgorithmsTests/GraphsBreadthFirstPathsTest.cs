@@ -4,6 +4,7 @@ using DataStructures.Graphs;
 using Algorithms.Graphs;
 using Xunit;
 using System.Diagnostics;
+using System.Linq;
 
 namespace UnitTest.AlgorithmsTests
 {
@@ -62,6 +63,21 @@ namespace UnitTest.AlgorithmsTests
 
             Trace.WriteLine("Distance from '" + sourceNode + "' to 'w' is: " + bfsPaths.DistanceTo("w"));
             Trace.WriteLine("Path from '" + sourceNode + "' to 'w' is : " + PrintPath(bfsPaths.ShortestPathTo("w")));
+
+            //删除节点后的处理
+            graph.RemoveVertex("x");
+            //计算各分部组件
+            var components = ConnectedComponents.Compute(graph);
+
+            //分别打印各组件元素
+            foreach (var item in components)
+            {
+                if (item == null) continue;
+                var node = item.First();
+
+                BreadthFirstSearcher.PrintAll(graph, node);
+                Trace.Write("\n");
+            }
         }
     }
 }
